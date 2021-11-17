@@ -1,2 +1,2 @@
 # kerbersploit
-special kerberos exploitation framework
+kerberos exploitation framework

